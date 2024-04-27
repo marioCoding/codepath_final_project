@@ -17,9 +17,16 @@ function App() {
   }, []);
 
   const fetchPosts = async () => {
-    let { data: posts, error } = await supabase.from('posts').select('*');
-    if (error) console.log('Error fetching posts:', error.message);
-    else setPosts(posts);
+    try {
+      let { data: posts, error } = await supabase.from('posts').select('*');
+      if (error) {
+        console.log('Error fetching posts:', error.message);
+      } else {
+        setPosts(posts);
+      }
+    } catch (error) {
+      console.log('Error fetching posts:', error.message);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -107,17 +114,17 @@ function App() {
         <input type="text" placeholder="Search by Title" value={searchTerm} onChange={handleSearchTermChange} />
       </div>
       <div>
-        {filteredPosts.map(post => (
-          <div key={post.id}>
-            <h2>{post.title}</h2>
-            <p>Created Time: {post.createdTime}</p>
-            <p>Upvotes: {post.upvotes}</p>
-            <button onClick={() => handleUpvote(post.id)}>Upvote</button>
-            <button onClick={() => handleDelete(post.id)}>Delete</button>
-            <button onClick={() => handleEdit(post.id)}>Edit</button>
-            <button onClick={() => goToPostPage(post.id)}>View Post</button>
-          </div>
-        ))}
+      {filteredPosts.map(post => (
+  <div key={post.id}>
+    <h2>{post.title}</h2>
+    <p>Created Time: {post.createdTime}</p>
+    <p>Upvotes: {post.upvotes}</p>
+    <button onClick={() => handleUpvote(post.id)}>Upvote</button>
+    <button onClick={() => handleDelete(post.id)}>Delete</button>
+    <button onClick={() => handleEdit(post.id)}>Edit</button>
+    <button onClick={() => goToPostPage(post.id)}>View Post</button>
+  </div>
+))}
       </div>
     </div>
   );

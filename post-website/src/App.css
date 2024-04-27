@@ -45,9 +45,11 @@ input[type="text"] {
 button {
   border: none;
   border-radius: 5px;
+  margin: 5px;
   background-color: #ff4500; /* Orange button color */
   color: #ffffff; /* White text color */
   cursor: pointer;
+  padding: 10px 20px; /* Add padding to buttons */
 }
 
 button:hover {
@@ -76,6 +78,11 @@ input[type="text"]::placeholder {
 
 input[type="text"]:focus {
   outline: none;
+}
+
+/* Add margin between rows */
+div > *:not(:last-child) {
+  margin-bottom: 10px;
 }
 
 /* Styling for post items */
