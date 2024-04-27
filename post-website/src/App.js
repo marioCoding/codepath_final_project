@@ -28,7 +28,7 @@ function App() {
       const { data, error } = await supabase.from('posts').insert([newPost]);
       if (error) {
         console.log('Error creating post:', error.message);
-      } else {
+      } else if (data) { // Check if data is not null
         setPosts([...posts, data[0]]);
         setNewPost({ title: '', content: '', imageUrl: '' });
       }
